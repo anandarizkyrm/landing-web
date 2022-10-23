@@ -1,5 +1,5 @@
 [
   { "name": "Home", "href": "/" },
-  { "name": "About", "href": "/about" },
-  { "name": "Blog", "href": "/blog" }
+  { "name": "About", "href": "/landing-web/about" },
+  { "name": "Blog", "href": "/landing-web/blog" }
 ]
