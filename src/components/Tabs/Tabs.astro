@@ -1,0 +1,74 @@
+---
+export interface Props {
+  activeTextColor?: string;
+  headings: string[];
+  contents: string[];
+}
+const {
+  headings,
+  contents,
+  activeTextColor = "#A741FF",
+} = Astro.props as Props;
+---
+
+<div class="tabs">
+  <ul class="tabs-header">
+    {headings.map((heading) => <li>{heading}</li>)}
+  </ul>
+  <ul class="tabs-content">
+    <li class="tab"></li>
+  </ul>
+</div>
+
+<style>
+  .active-text {
+    color: #a741ff;
+  }
+  .tabs {
+    margin-top: 30px;
+  }
+  .tabs-header {
+    display: flex;
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+  }
+  .tabs-header li {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  .tabs-content {
+    font-size: 18px;
+    padding: 20px;
+    border: 1px solid #333;
+    font-weight: bold;
+    background: #f4f4f4;
+  }
+</style>
+
+<script define:vars={{ contents }}>
+  const headerList = document.querySelector(".tabs-header");
+  const contentList = document.querySelector(".tab");
+  const headersChildren = [...headerList.children];
+
+  let index = 0;
+
+  const handleChange = (idx, child) => {
+    headersChildren.forEach((child, idex) => {
+      if (idx !== idex) {
+        child.classList.remove("active-text");
+      }
+    });
+    if (idx === index) {
+      child.classList.add("active-text");
+      contentList.innerHTML = contents[index];
+    }
+  };
+  handleChange(index, headersChildren[index]);
+  headersChildren.forEach((child, idx) => {
+    child.addEventListener("click", () => {
+      index = idx;
+      handleChange(idx, child);
+    });
+  });
+</script>
